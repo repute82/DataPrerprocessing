@@ -1,4 +1,5 @@
 import pandas as pd
+import numpy as np
 # import csv
 
 # def readCSVfile(filename):
@@ -16,6 +17,9 @@ if __name__ == "__main__":
     # readCSVfile("KT_CZ_Analysis.card_by_upjong.csv")
     df = pd.read_csv("KT_CZ_Analysis.card_by_upjong.csv")
     print(df.columns)
-    group1= df.revenue.groupby(['행정동 코드', '년', '월', '업종코드'])    
-    #print(group1.mean())
+    group1= df.groupby([df.year, df.month, df.hd_cd, df.upjong_code])        
+    print(group1['revenue'].agg(np.mean))
+
+    #writing CSV file
+    
 
