@@ -13,7 +13,24 @@ import numpy as np
 
 
 if __name__ == "__main__": 
-    # set index
+    # 1. read csv:  card_by_upjong = pd.read_csv("KT_CZ_Analysis.card_by_upjong.csv")
+    # 1-1. when reading csv holding Korean: spop = pd.read_csv("KT_CZ_Analysis.sejong_spop.csv", encoding='CP949') (in windows)
+
+    # 2. create new column
+    # 2-1. by splitting the exisiting columns: nowork['year'] = nowork['etl_ymd'].astype(str).str[:4]
+    # 2-2. by concatenating the existing columns: nowork['sido+sgg'] = nowork['sido_code'].astype(str) + nowork['sgg_code'].astype(str)
+    
+    # 3. removing NAN rows : nowork.dropna(how='any') ( meaning removing all rows holding any NAN in their columns)
+    # 3-1. removing columns: del nowork['elt_ymd']
+
+    # 4. groupby
+    # 4-1. grouping by some columns: nowork_group = nowork.groupby(['year','month','sido+sgg'])
+    # 4-2. sum, mean of groups: nowork_group['cnt'].sum()
+
+    # 5. writing result: nowork_group['cnt'].sum().to_csv("nowork_result.csv", header=True)
+
+    # 6. merging dataframes : pd.merge(df1, df2, on="id")
+
     idx = [0,1]
 
     # 1. KT_CZ_Analysis.card_by_upjong.csv
