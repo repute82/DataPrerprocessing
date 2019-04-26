@@ -13,21 +13,34 @@ import numpy as np
 
 
 if __name__ == "__main__": 
+    # set index
+    idx = [0,1]
+
     # 1. KT_CZ_Analysis.card_by_upjong.csv
-    # readCSVfile
-    card_by_upjong = pd.read_csv("KT_CZ_Analysis.card_by_upjong.csv")
-    # removing upjong_code = 3002, which is not in other tables
-    card_by_upjong = card_by_upjong[card_by_upjong.upjong_code != 3002]
-    #grouped by year,month,hd_cd,upjong_code
-    group1= card_by_upjong.groupby([card_by_upjong.year, card_by_upjong.month, card_by_upjong.hd_cd, card_by_upjong.upjong_code])            
+    if idx[0] == 1:
+        print("KT_CZ_Analysis.card_by_upjong.csv processing: ")
+        # readCSVfile
+        card_by_upjong = pd.read_csv("KT_CZ_Analysis.card_by_upjong.csv")
+        # removing upjong_code = 3002, which is not in other tables
+        card_by_upjong = card_by_upjong[card_by_upjong.upjong_code != 3002]
+        #grouped by year,month,hd_cd,upjong_code
+        group1= card_by_upjong.groupby([card_by_upjong.year, card_by_upjong.month, card_by_upjong.hd_cd, card_by_upjong.upjong_code])            
 
-    # make dataframe as result
-    result = group1['revenue','customer_count','payment_count'].sum()  
+        # make dataframe as result
+        result = group1['revenue','customer_count','payment_count'].sum()  
+
+        #end: writing CSV file    
+        result.to_csv('result.csv', index=True,header = True)
+        print("End of KT_CZ_Analysis.card_by_upjong.csv processing: ")
     
-    #end: writing CSV file    
-    result.to_csv('result.csv', index=True,header = True)
+    if idx[1] == 1:    
+        print("KT_CZ_Analysis.card_living_ingu.csv processing: ")
+        # 2. KT_CZ_Analysis.card_living_ingu.csv
+        card_living_ingu = pd.read_csv("KT_CZ_Analysis.card_living_ingu.csv")
+        #grouped by year,month,hd_cd,upjong_code
+        group1= card_by_upjong.groupby([card_by_upjong.year, card_by_upjong.month, card_by_upjong.hd_cd, card_by_upjong.upjong_code]) 
 
-    # 2. KT_CZ_Analysis.card_by_upjong.csv
+        print("End of KT_CZ_Analysis.card_living_ingu.csv processing: ")
     
 
 
