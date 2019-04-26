@@ -18,11 +18,12 @@ if __name__ == "__main__":
     card_by_upjong = pd.read_csv("KT_CZ_Analysis.card_by_upjong.csv")
     # removing upjong_code = 3002, which is not in other tables
     card_by_upjong = card_by_upjong[card_by_upjong.upjong_code != 3002]
+    #grouped by year,month,hd_cd,upjong_code
     group1= card_by_upjong.groupby([card_by_upjong.year, card_by_upjong.month, card_by_upjong.hd_cd, card_by_upjong.upjong_code])            
 
     # make dataframe as result
     result = group1['revenue','customer_count','payment_count'].sum()  
-
+    
     #end: writing CSV file    
     result.to_csv('result.csv', index=True,header = True)
 
