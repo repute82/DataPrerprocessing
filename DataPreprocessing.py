@@ -12,14 +12,23 @@ import numpy as np
 #         print(f'Processed {line_count} lines.')
 
 
-
 if __name__ == "__main__": 
-    # readCSVfile("KT_CZ_Analysis.card_by_upjong.csv")
-    df = pd.read_csv("KT_CZ_Analysis.card_by_upjong.csv")
-    print(df.columns)
-    group1= df.groupby([df.year, df.month, df.hd_cd, df.upjong_code])        
-    print(group1['revenue'].agg(np.mean))
+    # 1. KT_CZ_Analysis.card_by_upjong.csv
+    # readCSVfile
+    card_by_upjong = pd.read_csv("KT_CZ_Analysis.card_by_upjong.csv")
+    # removing upjong_code = 3002, which is not in other tables
+    card_by_upjong = card_by_upjong[card_by_upjong.upjong_code != 3002]
+    group1= card_by_upjong.groupby([card_by_upjong.year, card_by_upjong.month, card_by_upjong.hd_cd, card_by_upjong.upjong_code])            
 
-    #writing CSV file
+    # make dataframe as result
+    result = group1['revenue','customer_count','payment_count'].sum()  
+
+    #end: writing CSV file    
+    result.to_csv('result.csv', index=True,header = True)
+
+    # 2. KT_CZ_Analysis.card_by_upjong.csv
+    
+
+
     
 
